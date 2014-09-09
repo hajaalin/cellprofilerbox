@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Script to start and connect to a container with CellProfiler.
+# Modified from https://pelle.io/delivering-gui-applications-with-docker/
+
 # docker image to use
 DOCKER_IMAGE_NAME="hajaalin/cellprofilerbox"
 
