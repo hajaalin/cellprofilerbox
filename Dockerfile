@@ -16,8 +16,29 @@ RUN augtool set ${SSHD_CONFIG}/UsePAM no \
 && augtool set ${SSHD_CONFIG}/KerberosAuthentication no \
 && augtool set ${SSHD_CONFIG}/GSSAPIAuthentication no
 
-RUN useradd dev
-RUN echo 'dev:123'|chpasswd
+# Create user. Set same UID as in data container...
+RUN useradd -s /bin/bash -u 1000 dev \
+&& chown -R dev: /home/dev \
+&& echo 'dev:123'|chpasswd
+
+# Create a shared data volume
+# We need to create an empty file, otherwise the volume will
+# belong to root.
+# This is probably a Docker bug.
+RUN mkdir /var/shared/ \
+&& touch /var/shared/placeholder \
+&& chown -R dev:dev /var/shared
+VOLUME /var/shared
+
+WORKDIR /home/dev
+ENV HOME /home/dev
+
+# Link in shared parts of the home directory
+RUN ln -s /var/shared/.ssh
+RUN ln -s /var/shared/.bash_history
+RUN ln -s /var/shared/.gitconfig
+
+RUN chown -R dev: /home/dev
 
 EXPOSE 22
 
