@@ -1,0 +1,20 @@
+# Name: LoG3D
+# Author: Daniel Sage
+# Homepage: http://bigwww.epfl.ch/sage/soft/LoG3D/
+# Version: 1.0.0 (?)
+
+# This .jar packaged by: Harri Jäälinoja (harri.jaalinoja@helsinki.fi)
+# mkdir tmp; cd tmp
+# wget http://bigwww.epfl.ch/sage/soft/LoG3D/LoG3D.zip
+# unzip LoG3D
+# cp ../plugins.config.LoG3D plugins.config
+# jar cvf LoG_3D.jar .
+
+# A single .jar file can contain multiple plugins, specified in separate lines.
+#
+# The format is: <menu>, "<menu label>", <class name>
+#
+# If something like ("<arg>") is appended to the class name, the setup() method
+# will get that as arg parameter; otherwise arg is simply the empty string.
+
+Plugins>Process, "LoG 3D...", LoG_3D

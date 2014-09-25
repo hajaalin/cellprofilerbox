@@ -5,6 +5,8 @@ openssh-server \
 xauth \
 augeas \
 git \
+unzip \
+java-1.7.0-openjdk-devel \
 && mkdir /var/run/sshd
 
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
@@ -37,6 +39,11 @@ ENV HOME /home/dev
 RUN ln -s /var/shared/.ssh
 RUN ln -s /var/shared/.bash_history
 RUN ln -s /var/shared/.gitconfig
+
+# Add a script for downloading ImageJ plugins
+ADD getImageJPlugins.sh /home/dev/
+ADD plugins.config.LoG3D /home/dev/
+RUN mkdir plugins
 
 RUN chown -R dev: /home/dev
 
